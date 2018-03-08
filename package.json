@@ -1,0 +1,21 @@
+{
+  "name": "dstwitter",
+  "version": "0.1.1",
+  "description": "Simplify usage of twitter API",
+  "main": "index.js",
+  "dependencies": {
+    "long": "^3.2.0",
+    "twitter": "^1.7.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "dstools",
+    "twitter",
+    "data",
+    "science"
+  ],
+  "author": "Elchanan Shor",
+  "license": "MIT"
+}
