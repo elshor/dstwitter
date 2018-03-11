@@ -244,17 +244,34 @@ registerFunction('retweets',function(wrapped,id,max){
  * @returns {Collection} Collection of twitter user objects
  */
 registerFunction('twitterUser',function(wrapped,screenName){
+	//TODO handle situations where the number of input screen names or ids exceed 100
 	let screenNames = [];
+	let ids = [];
 	if(screenName){
-		screenNames.push(screenName);
-	}else if(!Array.isArray(wrapped)){
-		screenNames = typeof wrapped === 'object'? [wrapped.screen_name] :[wrapped];
+		if(isTwitterId(screenName)){
+			ids.push(screenName);
+		}else{
+			screenNames.push(screenName);
+		}
 	}else{
-		screenNames = wrapped.map((user)=>typeof user === 'string'? user : user.screen_name);
+		wrapped = Array.isArray(wrapped)?wrapped : [wrapped];
+		console.assert(wrapped.length <= 100,'twitterUser function cannot handle lists longer than 100 items');
+		wrapped.forEach((item)=>{
+			let name = typeof item === 'string'? item : (item.screen_name || item.id_str);
+			if(isTwitterId(name)){
+				ids.push(name);
+			}else{
+				screenNames.push(name);
+			}
+		});
 	}
 	return this.twitter(
 		'users/lookup','this',
-		{screen_name:screenNames.join()},1,1
+		{
+			method:'post',
+			screen_name:screenNames.join(),
+			user_id:ids.join()
+		},1,1
 	);
 });
 
