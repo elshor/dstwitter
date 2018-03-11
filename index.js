@@ -39,6 +39,7 @@ function twitterPage(
 		const upToNow = previous.concat(thisPage);
 		//if thisPage is not an array - just return it. This is not a collection
 		if(!Array.isArray(thisPage)){
+			reporter();
 			return thisPage;
 		}
 		const left = count - thisPage.length;
