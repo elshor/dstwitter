@@ -2,7 +2,9 @@ dstwitter - Easy use of twitter API
 ===================================
 dstwitter is a module for simplifying data analysis and manipulation of twitter tweets and users. It integrates into [dstools](https://www.npmjs.com/package/dstools) by adding functions to the dstools collection object. See the [dstools documentation](https://elshor.github.io/dstools/) for some more information about the dstools module.
 
-You will need access token key, access token secret, consumer key and consumer token to run the code.
+An important feature is its ability to break single requests with many required items into many API calls and when reached twitter API quota, wait for 15 minutes until the API is open again. For example, if you would like to search for 10,000 tweets about javascript, a single API call will not do. The twitter API limits each request to 100 tweets and there can only be 180 API calls in a 15 minute window. This package handles paging and waits when reached the 15 minute window quota.
+
+You will need access token key, access token secret, consumer key and consumer token to run the code. 
 
 ## Examples
 ### Initialize the environment
