@@ -198,12 +198,12 @@ registerFunction('searchTweets',function(wrapped,query,max,options){
  * @returns {Collection} return JSON from API request
  */
 registerFunction('follow',function(wrapped,id){
-	return getIDs(id,wrapped).map((item)=>this.twitter(
+	return Promise.all(getIDs(id,wrapped).map((item)=>this.twitter(
 		'friendships/create','this',{
 			screen_name:isTwitterId(item)? undefined : item,
 			user_id:isTwitterId(item)? item : undefined,
 			method:'post'
-		},1,1));
+		},1,1)));
 });
 
 /**
@@ -215,12 +215,12 @@ registerFunction('follow',function(wrapped,id){
  */
 registerFunction('unfollow',function(wrapped,id){
 	let ids = getIDs(id,wrapped);
-	return ids.map((item)=>this.twitter(
+	return Promise.all(ids.map((item)=>this.twitter(
 		'friendships/destroy','this',{
 			screen_name:isTwitterId(item)? undefined : item,
 			user_id:isTwitterId(item)? item : undefined,
 			method:'post'
-		},1,1));
+		},1,1)));
 });
 
 /**
